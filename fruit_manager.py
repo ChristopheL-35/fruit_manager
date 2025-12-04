@@ -1,14 +1,14 @@
 import json
 
 
-def ouvrir_inventaire(path="inventaire.json"):
-    with open(path, 'r', encoding="utf-8") as fichier:
+def ouvrir_inventaire(path="data/inventaire.json"):
+    with open(path, "r", encoding="utf-8") as fichier:
         inventaire = json.load(fichier)
     return inventaire
 
 
-def ecrire_inventaire(invent, path="inventaire.json"):
-    with open(path, 'w', encoding="utf-8") as fichier:
+def ecrire_inventaire(invent, path="data/inventaire.json"):
+    with open(path, "w", encoding="utf-8") as fichier:
         json.dump(invent, fichier, ensure_ascii=False, indent=4)
 
 
