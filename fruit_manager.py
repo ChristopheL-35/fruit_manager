@@ -16,6 +16,7 @@ def afficher_inventaire(invent):
     print("Inventaire actuel :")
     for fruit, quantite in invent.items():
         print(f"- {fruit.capitalize():<15} -- {quantite:>3} unités")
+    print()
 
 
 def recolter(invent, fruit, quantite):
@@ -44,6 +45,7 @@ def ecrire_tresorerie(treso, path="data/tresorerie.txt"):
 
 def afficher_tresorerie(treso):
     print(f"Trésorerie actuelle : {treso:.2f} €")
+    print()
 
 
 if __name__ == "__main__":
