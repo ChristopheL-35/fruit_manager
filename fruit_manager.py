@@ -28,7 +28,7 @@ def vendre(invent, fruit, quantite, treso):
     invent[fruit] = max(invent.get(fruit, 0) - quantite, 0)
     treso += vendus
     print(f"{fruit} vendus, {vendus} sortis de l'inventaire.")
-    return invent, treso
+    return treso
 
 
 def ouvrir_tresorerie(path="data/tresorerie.txt"):
@@ -53,11 +53,12 @@ if __name__ == "__main__":
     afficher_inventaire(inventaire)
 
     recolter(inventaire, "fruit de la passion", 25)
-    recolter(inventaire, "bananes", 10)
+    recolter(inventaire, "mangues", 10)
 
-    vendre(inventaire, "mangues", 15)
-    vendre(inventaire, "ananas", 70)
+    tresorerie = vendre(inventaire, "mangues", 5, tresorerie)
+    tresorerie = vendre(inventaire, "ananas", 10, tresorerie)
 
+    afficher_tresorerie(tresorerie)
     afficher_inventaire(inventaire)
     ecrire_inventaire(inventaire)
     ecrire_tresorerie(tresorerie)
