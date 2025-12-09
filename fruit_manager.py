@@ -1,7 +1,7 @@
 import json
 
 
-def ouvrir_inventaire(path="data/inventaire.json"):
+def ouvrir_inventaire(path="./data/inventaire.json"):
     with open(path, "r", encoding="utf-8") as fichier:
         inventaire = json.load(fichier)
     return inventaire
