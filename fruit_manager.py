@@ -13,7 +13,8 @@ def ecrire_inventaire(invent, path="data/inventaire.json"):
 
 
 def afficher_inventaire(invent):
-    print("Inventaire actuel :")
+    print()
+    print("✋ Inventaire actuel :")
     for fruit, quantite in invent.items():
         print(f"- {fruit.capitalize():<15} -- {quantite:>3} unités")
     print()
@@ -21,14 +22,16 @@ def afficher_inventaire(invent):
 
 def recolter(invent, fruit, quantite):
     invent[fruit] = invent.get(fruit, 0) + quantite
-    print(f"{fruit} récolté, {quantite} ajoutés à l'inventaire.")
+    print(f"✋ {fruit} récolté, {quantite} ajoutés à l'inventaire.")
 
 
 def vendre(invent, fruit, quantite, treso, prix):
-    vendus = min(invent.get(fruit, 0), quantite)
-    invent[fruit] = max(invent.get(fruit, 0) - quantite, 0)
-    treso += vendus * prix.get(fruit, 0)
-    print(f"{fruit} vendus, {vendus} sortis de l'inventaire.")
+    if quantite > invent.get(fruit, 0):
+        print(f"❌ Vente impossible ; pas assez de {fruit}")
+    else:
+        invent[fruit] = invent.get(fruit, 0) - quantite
+        treso += quantite * prix.get(fruit, 0)
+        print(f"✅ {fruit} vendu, {quantite} sortis de l'inventaire.")
     return treso
 
 
@@ -44,7 +47,7 @@ def ecrire_tresorerie(treso, path="data/tresorerie.txt"):
 
 
 def afficher_tresorerie(treso):
-    print(f"Trésorerie actuelle : {treso:.2f} €")
+    print(f"✨ Trésorerie actuelle : {treso:.2f} €")
     print()
 
 
@@ -67,7 +70,7 @@ if __name__ == "__main__":
     tresorerie = vendre(inventaire, "mangues", 5, tresorerie, prix)
     tresorerie = vendre(inventaire, "ananas", 10, tresorerie, prix)
 
-    afficher_tresorerie(tresorerie)
     afficher_inventaire(inventaire)
+    afficher_tresorerie(tresorerie)
     ecrire_inventaire(inventaire)
     ecrire_tresorerie(tresorerie)
