@@ -24,10 +24,10 @@ def recolter(invent, fruit, quantite):
     print(f"{fruit} récolté, {quantite} ajoutés à l'inventaire.")
 
 
-def vendre(invent, fruit, quantite, treso):
+def vendre(invent, fruit, quantite, treso, prix):
     vendus = min(invent.get(fruit, 0), quantite)
     invent[fruit] = max(invent.get(fruit, 0) - quantite, 0)
-    treso += vendus
+    treso += vendus * prix.get(fruit, 0)
     print(f"{fruit} vendus, {vendus} sortis de l'inventaire.")
     return treso
 
@@ -48,17 +48,24 @@ def afficher_tresorerie(treso):
     print()
 
 
+def ouvrir_prix(path="./data/prix.json"):
+    with open(path, "r", encoding="utf-8") as fichier:
+        prix = json.load(fichier)
+    return prix
+
+
 if __name__ == "__main__":
     inventaire = ouvrir_inventaire()
     tresorerie = ouvrir_tresorerie()
+    prix = ouvrir_prix()
     afficher_tresorerie(tresorerie)
     afficher_inventaire(inventaire)
 
     recolter(inventaire, "fruit de la passion", 25)
     recolter(inventaire, "mangues", 10)
 
-    tresorerie = vendre(inventaire, "mangues", 5, tresorerie)
-    tresorerie = vendre(inventaire, "ananas", 10, tresorerie)
+    tresorerie = vendre(inventaire, "mangues", 5, tresorerie, prix)
+    tresorerie = vendre(inventaire, "ananas", 10, tresorerie, prix)
 
     afficher_tresorerie(tresorerie)
     afficher_inventaire(inventaire)
