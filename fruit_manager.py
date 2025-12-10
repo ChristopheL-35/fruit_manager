@@ -14,7 +14,7 @@ def ecrire_inventaire(invent, path="data/inventaire.json"):
 
 def afficher_inventaire(invent):
     print()
-    print("✋ Inventaire actuel :")
+    print("🔍️ Inventaire actuel :")
     for fruit, quantite in invent.items():
         print(f"- {fruit.capitalize():<15} -- {quantite:>3} unités")
     print()
@@ -22,7 +22,7 @@ def afficher_inventaire(invent):
 
 def recolter(invent, fruit, quantite):
     invent[fruit] = invent.get(fruit, 0) + quantite
-    print(f"✋ {fruit} récolté, {quantite} ajoutés à l'inventaire.")
+    print(f"🍍 {fruit} récolté, {quantite} ajoutés à l'inventaire.")
 
 
 def vendre(invent, fruit, quantite, treso, prix):
@@ -47,7 +47,7 @@ def ecrire_tresorerie(treso, path="data/tresorerie.txt"):
 
 
 def afficher_tresorerie(treso):
-    print(f"✨ Trésorerie actuelle : {treso:.2f} €")
+    print(f"💰️ Trésorerie actuelle : {treso:.2f} €")
     print()
 
 
