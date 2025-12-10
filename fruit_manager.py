@@ -23,6 +23,7 @@ def afficher_inventaire(invent):
 def recolter(invent, fruit, quantite):
     invent[fruit] = invent.get(fruit, 0) + quantite
     print(f"🍍 {fruit} récolté, {quantite} ajoutés à l'inventaire.")
+    return invent
 
 
 def vendre(invent, fruit, quantite, treso, prix):
@@ -32,7 +33,7 @@ def vendre(invent, fruit, quantite, treso, prix):
         invent[fruit] = invent.get(fruit, 0) - quantite
         treso += quantite * prix.get(fruit, 0)
         print(f"✅ {fruit} vendu, {quantite} sortis de l'inventaire.")
-    return treso
+    return invent, treso
 
 
 def ouvrir_tresorerie(path="data/tresorerie.txt"):
@@ -64,11 +65,11 @@ if __name__ == "__main__":
     afficher_tresorerie(tresorerie)
     afficher_inventaire(inventaire)
 
-    recolter(inventaire, "fruit de la passion", 25)
-    recolter(inventaire, "mangues", 10)
+    inventaire = recolter(inventaire, "fruit de la passion", 25)
+    inventaire = recolter(inventaire, "mangues", 10)
 
-    tresorerie = vendre(inventaire, "mangues", 5, tresorerie, prix)
-    tresorerie = vendre(inventaire, "ananas", 10, tresorerie, prix)
+    inventaire, tresorerie = vendre(inventaire, "mangues", 5, tresorerie, prix)
+    inventaire, tresorerie = vendre(inventaire, "ananas", 10, tresorerie, prix)
 
     afficher_inventaire(inventaire)
     afficher_tresorerie(tresorerie)
