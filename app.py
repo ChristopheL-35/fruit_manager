@@ -20,7 +20,7 @@ with c2:
     st.title("💰️ Trésorerie")
     st.metric(label="Montant disponible", value=f"{tresorerie:.2f} €")
 
-st.sidebar.title("Gestion de l'inventaire")
+st.sidebar.title("⚖️ Gestion de l'inventaire")
 
 st.sidebar.subheader("Récolte de fruits")
 nb_fruit_recolte = st.sidebar.number_input(
@@ -30,6 +30,7 @@ fruit_recolte = st.sidebar.selectbox("Fruit à récolter", liste_fruits)
 if st.sidebar.button("Récolter"):
     inventaire = recolter(inventaire, fruit_recolte, nb_fruit_recolte)
     ecrire_inventaire(inventaire)
+    st.rerun()
 
 st.sidebar.divider()
 
@@ -44,3 +45,4 @@ if st.sidebar.button("Vendre"):
     )
     ecrire_inventaire(inventaire)
     ecrire_tresorerie(tresorerie)
+    st.rerun()
