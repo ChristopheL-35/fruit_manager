@@ -1,10 +1,13 @@
 import json
 import os
+import datetime
+
 
 DATA_DIR = "data"
 PRIX_PATH = os.path.join(DATA_DIR, "prix.json")
 INVENTAIRE_PATH = os.path.join(DATA_DIR, "inventaire.json")
-TRESORERIE_PATH = os.path.join(DATA_DIR, "tresorerie.json")
+TRESORERIE_PATH = os.path.join(DATA_DIR, "tresorerie.txt")
+HISTO_TRESORERIE_PATH = os.path.join(DATA_DIR, "tresorerie.json")
 
 
 def ouvrir_inventaire(path=INVENTAIRE_PATH):
@@ -49,6 +52,7 @@ def vendre(invent, fruit, quantite, treso, prix):
     else:
         invent[fruit] = invent.get(fruit, 0) - quantite
         treso += quantite * prix.get(fruit, 0)
+        ecrire_historique_tresorerie(treso)
         print(f"✅ {fruit} vendu, {quantite} sortis de l'inventaire.")
     return invent, treso
 
@@ -61,6 +65,32 @@ def ouvrir_tresorerie(path=TRESORERIE_PATH):
             json.dump(500.0, fichier)
     with open(path, "r", encoding="utf-8") as fichier:
         return json.load(fichier)
+
+
+def lire_historique_tresorerie(path=HISTO_TRESORERIE_PATH):
+    # Si le fichier n'existe pas on en crée un par défaut
+    if os.path.exists(path):
+        with open(path, "r") as fichier:
+            try:
+                return json.load(fichier)
+            except:
+                return []
+
+
+def ecrire_historique_tresorerie(tresorerie, path=HISTO_TRESORERIE_PATH):
+    historique = []
+    # Si le fichier n'existe pas on en crée un par défaut
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as fichier:
+            try:
+                historique = json.load(fichier)
+            except:
+                historique = []
+    historique.append(
+        {"timestamp": datetime.datetime.now().isoformat(), "tresorerie": tresorerie}
+    )
+    with open(path, "w", encoding="utf-8") as fichier:
+        json.dump(historique, fichier)
 
 
 def ecrire_tresorerie(treso, path=TRESORERIE_PATH):
