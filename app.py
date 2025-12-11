@@ -21,7 +21,7 @@ with c1:
     inventaire = dict(
         sorted(inventaire.items(), key=lambda item: item[1], reverse=True)
     )
-    ax.bar(inventaire.keys(), inventaire.values())
+    ax.bar(inventaire.keys(), inventaire.values(), edgecolor="k", color="lightblue")
     ax.tick_params("x", rotation=90)
     ax.tick_params("y", rotation=45)
     ax.set_xlabel("Fruit")
@@ -36,10 +36,10 @@ with c2:
 st.sidebar.title("⚖️ Gestion de l'inventaire")
 
 st.sidebar.subheader("Récolte de fruits")
+fruit_recolte = st.sidebar.selectbox("Fruit à récolter", liste_fruits)
 nb_fruit_recolte = st.sidebar.number_input(
     "Nombre de fruits à récolter", min_value=0, step=1
 )
-fruit_recolte = st.sidebar.selectbox("Fruit à récolter", liste_fruits)
 if st.sidebar.button("Récolter"):
     inventaire = recolter(inventaire, fruit_recolte, nb_fruit_recolte)
     ecrire_inventaire(inventaire)
@@ -48,10 +48,10 @@ if st.sidebar.button("Récolter"):
 st.sidebar.divider()
 
 st.sidebar.subheader("Vente de fruits")
+fruit_vente = st.sidebar.selectbox("Fruit à vendre", liste_fruits)
 nb_fruit_vente = st.sidebar.number_input(
     "Nombre de fruits à vendre", min_value=0, step=1
 )
-fruit_vente = st.sidebar.selectbox("Fruit à vendre", liste_fruits)
 if st.sidebar.button("Vendre"):
     inventaire, tresorerie = vendre(
         inventaire, fruit_vente, nb_fruit_vente, tresorerie, prix
