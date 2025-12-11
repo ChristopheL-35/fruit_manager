@@ -1,5 +1,6 @@
 import streamlit as st
 from fruit_manager import *
+from matplotlib import pyplot as plt
 
 inventaire = ouvrir_inventaire()
 prix = ouvrir_prix()
@@ -15,6 +16,18 @@ c1, _, c2 = st.columns((2, 1, 1))
 with c1:
     st.title("🔍️ Inventaire")
     st.table(inventaire, border="horizontal")
+
+    fig, ax = plt.subplots()
+    inventaire = dict(
+        sorted(inventaire.items(), key=lambda item: item[1], reverse=True)
+    )
+    ax.bar(inventaire.keys(), inventaire.values())
+    ax.tick_params("x", rotation=90)
+    ax.tick_params("y", rotation=45)
+    ax.set_xlabel("Fruit")
+    ax.set_ylabel("Quantité")
+    ax.set_title("Inventaire")
+    st.pyplot(fig)
 
 with c2:
     st.title("💰️ Trésorerie")
