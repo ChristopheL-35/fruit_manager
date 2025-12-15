@@ -121,6 +121,8 @@ def ouvrir_prix(path=PRIX_PATH):
         return json.load(fichier)
 
 
+# Rappel : la 'garde' permet de n'exécuter ce qui suit que si le programme est appelé directement.
+# A contrario s'il est appelé comme module (via un import) alors ce ne sera pas lancé.
 if __name__ == "__main__":
     inventaire = ouvrir_inventaire()
     tresorerie = ouvrir_tresorerie()
